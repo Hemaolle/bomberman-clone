@@ -11,7 +11,7 @@ public class PlayerDropBomb : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown("Fire1") && numberOfBombs < maxLiveBombs) {
 			var newBomb = (GameObject)Instantiate(bomb, transform.position, Quaternion.identity);
-			newBomb.GetComponent<Bomb>().BombExplode += OnBombExplode;
+			newBomb.GetComponent<Bomb>().bombExplode += OnBombExplode;
 			numberOfBombs++;
 		}
 	}

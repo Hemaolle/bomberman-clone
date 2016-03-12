@@ -17,13 +17,24 @@ public class Bomb : MonoBehaviour
 
 	void Explode() {		
 		bombExplode();
-		for (int i = -distance; i <= distance; i++) {
-			Instantiate(explosion, transform.position + new Vector3(i * distanceUnit, 0, 0), Quaternion.identity);
-		}
-		for (int i = -distance; i <= distance; i++) {
-			Instantiate(explosion, transform.position + new Vector3(0, i * distanceUnit, 0), Quaternion.identity);
-		}
+		Instantiate(explosion, transform.position, Quaternion.identity);
+		InstantiateExplosionsUntilAWallIsHit(Vector2.up);
+		InstantiateExplosionsUntilAWallIsHit(Vector2.down);
+		InstantiateExplosionsUntilAWallIsHit(Vector2.left);
+		InstantiateExplosionsUntilAWallIsHit(Vector2.right);
 		Destroy(gameObject);
+	}
+
+	void InstantiateExplosionsUntilAWallIsHit(Vector2 direction) {
+		for (int i = 1; i <= distance; i++) {
+			Vector2 explosionPosition = direction * i * distanceUnit + new Vector2(transform.position.x, 
+				transform.position.y);
+			Vector3 explosionPosition3D = new Vector3(explosionPosition.x, explosionPosition.y, 0);
+			Collider2D objectThatExplosionCollidesWith = Physics2D.OverlapPoint(explosionPosition);
+			Instantiate(explosion, explosionPosition, Quaternion.identity);
+			if (objectThatExplosionCollidesWith != null && objectThatExplosionCollidesWith.tag == "Ground")
+				return;
+		}
 	}
 }
 

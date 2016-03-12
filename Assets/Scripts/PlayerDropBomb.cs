@@ -10,7 +10,7 @@ public class PlayerDropBomb : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown("Fire1") && numberOfBombs < maxLiveBombs) {
-			var newBomb = (GameObject)Instantiate(bomb, transform.position, Quaternion.identity);
+			var newBomb = (GameObject)Instantiate(bomb, GetClosestTileCenter(transform.position), Quaternion.identity);
 			newBomb.GetComponent<Bomb>().bombExplode += OnBombExplode;
 			numberOfBombs++;
 		}
@@ -18,5 +18,12 @@ public class PlayerDropBomb : MonoBehaviour {
 
 	public void OnBombExplode() {
 		numberOfBombs--;
+	}
+
+	private Vector3 GetClosestTileCenter(Vector3 position) {
+		Vector3 result = new Vector3();
+		result.x = Mathf.Floor(position.x) + 0.5f;
+		result.y = Mathf.Floor(position.y) + 0.5f;
+		return result;
 	}
 }

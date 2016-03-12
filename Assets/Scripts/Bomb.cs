@@ -32,8 +32,12 @@ public class Bomb : MonoBehaviour
 			Vector3 explosionPosition3D = new Vector3(explosionPosition.x, explosionPosition.y, 0);
 			Collider2D objectThatExplosionCollidesWith = Physics2D.OverlapPoint(explosionPosition);
 			Instantiate(explosion, explosionPosition, Quaternion.identity);
-			if (objectThatExplosionCollidesWith != null && objectThatExplosionCollidesWith.tag == "Ground")
+			if (objectThatExplosionCollidesWith == null)
+				continue;
+			if (objectThatExplosionCollidesWith.tag == "Ground") 
 				return;
+			if (objectThatExplosionCollidesWith.tag == "Bomb") 
+				objectThatExplosionCollidesWith.gameObject.GetComponent<Bomb>().Explode();
 		}
 	}
 }

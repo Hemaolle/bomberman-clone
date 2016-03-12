@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		MovementDirections buttonReleasedInThisFrame = GetInputDirectionReleased();
 		if (latestButtonPressed == buttonReleasedInThisFrame) {
-			latestButtonPressed = MovementDirections.None;
+			latestButtonPressed = GetInputDirectionHeld();
 		}
 
 		Move();
@@ -45,6 +45,14 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButtonUp("Right")) return MovementDirections.Right;
 		if (Input.GetButtonUp("Up")) return MovementDirections.Up;
 		if (Input.GetButtonUp("Down")) return MovementDirections.Down;
+		return MovementDirections.None;
+	}
+
+	MovementDirections GetInputDirectionHeld() {
+		if (Input.GetButton("Left")) return MovementDirections.Left;
+		if (Input.GetButton("Right")) return MovementDirections.Right;
+		if (Input.GetButton("Up")) return MovementDirections.Up;
+		if (Input.GetButton("Down")) return MovementDirections.Down;
 		return MovementDirections.None;
 	}
 

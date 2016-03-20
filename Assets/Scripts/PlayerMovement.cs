@@ -11,11 +11,11 @@ public class PlayerMovement : MonoBehaviour {
 		myRigidbody2D = GetComponent<Rigidbody2D>();
 	}
 
-	enum MovementDirections {
-		None, Up, Down, Left, Right
-	};
-
 	private MovementDirections latestButtonPressed = MovementDirections.None;
+
+	public MovementDirections GetMovementDirection() {
+		return latestButtonPressed;
+	}
 
 	// Update is called once per frame
 	void Update () {

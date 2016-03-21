@@ -11,18 +11,23 @@ public class Bomb : MonoBehaviour
 
 	public event Action bombExplode;
 
+	private bool hasExploded = false;
+
 	void Start() {
 		Invoke("Explode", fuseTime);
 	}
 
-	void Explode() {		
-		bombExplode();
-		Instantiate(explosion, transform.position, Quaternion.identity);
-		InstantiateExplosionsUntilAWallIsHit(Vector2.up);
-		InstantiateExplosionsUntilAWallIsHit(Vector2.down);
-		InstantiateExplosionsUntilAWallIsHit(Vector2.left);
-		InstantiateExplosionsUntilAWallIsHit(Vector2.right);
-		Destroy(gameObject);
+	void Explode() {
+		if (!hasExploded) {
+			hasExploded = true;
+			bombExplode();
+			Instantiate(explosion, transform.position, Quaternion.identity);
+			InstantiateExplosionsUntilAWallIsHit(Vector2.up);
+			InstantiateExplosionsUntilAWallIsHit(Vector2.down);
+			InstantiateExplosionsUntilAWallIsHit(Vector2.left);
+			InstantiateExplosionsUntilAWallIsHit(Vector2.right);
+			Destroy(gameObject);
+		}
 	}
 
 	void InstantiateExplosionsUntilAWallIsHit(Vector2 direction) {

@@ -22,8 +22,8 @@ public class PlayerDropBomb : MonoBehaviour {
 
 	private Vector3 GetClosestTileCenter(Vector3 position) {
 		Vector3 result = new Vector3();
-		result.x = Mathf.Floor(position.x) + 0.5f;
-		result.y = Mathf.Floor(position.y) + 0.5f;
+		result.x = Mathf.Round(position.x);
+		result.y = Mathf.Round(position.y);
 		return result;
 	}
 }

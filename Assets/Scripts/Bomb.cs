@@ -39,7 +39,8 @@ public class Bomb : MonoBehaviour
 			Instantiate(explosion, explosionPosition, Quaternion.identity);
 			if (objectThatExplosionCollidesWith == null)
 				continue;
-			if (objectThatExplosionCollidesWith.tag == "Ground") 
+			if (objectThatExplosionCollidesWith.tag == "Ground" || 
+				objectThatExplosionCollidesWith.tag == "IndestructibleGround") 
 				return;
 			if (objectThatExplosionCollidesWith.tag == "Bomb") 
 				objectThatExplosionCollidesWith.gameObject.GetComponent<Bomb>().Explode();
